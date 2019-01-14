@@ -18,7 +18,7 @@ public class HomeController {
      *
      * @return default home view name.
      */
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
     public String home() {
         return "home";
     }

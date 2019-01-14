@@ -1,4 +1,4 @@
-package org.laplas.servlet;
+package org.laplas.basic.servlet;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.junit.After;

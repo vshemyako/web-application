@@ -1,4 +1,4 @@
-package org.laplas.servlet;
+package org.laplas.basic.servlet;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.laplas.servlet;
+package org.laplas.basic.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

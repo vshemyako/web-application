@@ -11,15 +11,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since January 14, 2019
  */
 @Controller
+@RequestMapping(value = "/homepage")
 public class HomeController {
 
     /**
-     * Handles http Get requests for default "/" path.
+     * Handles HTTP GET requests for "/homepage/funny" path.
      *
-     * @return default home view name.
+     * @return default funny view name.
      */
-    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
-    public String home() {
-        return "home";
+    @RequestMapping(value = "/funny", method = RequestMethod.GET)
+    public String funny() {
+        return "funny";
+    }
+
+    /**
+     * Handles HTTP GET requests for "/homepage/serious" path.
+     *
+     * @return default serious view name.
+     */
+    @RequestMapping(value = "/serious", method = RequestMethod.GET)
+    public String serious() {
+        return "serious";
     }
 }

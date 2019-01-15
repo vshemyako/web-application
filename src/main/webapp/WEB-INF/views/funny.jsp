@@ -3,6 +3,6 @@
     <title>Greeting Application</title>
 </head>
 <body>
-<h3>Welcome to the Home Page</h3>
+<h3>What's cookin', good lookin'?</h3>
 </body>
 </html>

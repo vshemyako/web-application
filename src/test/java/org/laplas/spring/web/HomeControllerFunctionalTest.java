@@ -1,9 +1,6 @@
 package org.laplas.spring.web;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Verifies functionality of a {@link HomeController} class using Selenium library.
@@ -13,17 +10,25 @@ import static org.junit.Assert.assertEquals;
  */
 public class HomeControllerFunctionalTest extends AbstractControllerFunctionalTest {
 
+    private static final String BASE_URI = "localhost:8080/web-application";
+    private static final String FUNNY_HOMEPAGE_URI_SUFFIX = "/homepage/funny";
+    private static final String SERIOUS_HOMEPAGE_URI_SUFFIX = "/homepage/serious";
+
     /**
      * Verifies that Spring Mvc framework indeed intercepts http request and returns
      * expected page, contents of which are eventually checked.
      */
     @Test
-    public void verifyHomeRequest() {
-        chromeDriver.get("localhost:8080/web-application/homepage");
+    public void verifyFunnyHomeRequest() {
+        chromeDriver.get(BASE_URI + FUNNY_HOMEPAGE_URI_SUFFIX);
+        assertEqualPageTitle("Greeting Application");
+        assertEqualElementTextContents("What's cookin', good lookin'?", "h3");
+    }
 
-        String actualPageTitle = chromeDriver.getTitle();
-        assertEquals("Greeting Application", actualPageTitle);
-        String actualHeaderMessage = chromeDriver.findElement(By.tagName("h3")).getText();
-        assertEquals("Welcome to the Home Page", actualHeaderMessage);
+    @Test
+    public void verifySeriousHomeRequest() {
+        chromeDriver.get(BASE_URI + SERIOUS_HOMEPAGE_URI_SUFFIX);
+        assertEqualPageTitle("Greeting Application");
+        assertEqualElementTextContents("Life is too short to be serious.", "h3");
     }
 }

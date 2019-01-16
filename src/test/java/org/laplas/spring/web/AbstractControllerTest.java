@@ -2,6 +2,7 @@ package org.laplas.spring.web;
 
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
@@ -22,6 +23,7 @@ public abstract class AbstractControllerTest {
 
         mockMvc = MockMvcBuilders.standaloneSetup(controllers)
                 .setViewResolvers(viewResolver)
+                .setValidator(new LocalValidatorFactoryBean())
                 .build();
     }
 }

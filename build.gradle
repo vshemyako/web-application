@@ -19,8 +19,10 @@ gretty {
 
 dependencies {
     compile 'org.springframework:spring-webmvc:5.1.0.RELEASE'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     testCompile 'junit:junit:4.12'
+    testCompile 'pl.pragmatists:JUnitParams:1.0.4'
     testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'io.github.bonigarcia:webdrivermanager:1.6.1'
     testCompile 'org.seleniumhq.selenium:selenium-java:3.14.0'

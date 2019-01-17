@@ -13,12 +13,12 @@ public class GreetingApplicationInitializer extends AbstractAnnotationConfigDisp
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{RootContextConfiguration.class};
+        return new Class[]{ServletContextConfiguration.class, SecurityConfiguration.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{ServletContextConfiguration.class};
+        return null;
     }
 
     @Override

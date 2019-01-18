@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Before;
 import org.junit.Test;
+import org.laplas.spring.web.controller.ClashingMappingController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**

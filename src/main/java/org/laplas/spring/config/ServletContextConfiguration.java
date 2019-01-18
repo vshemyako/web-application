@@ -1,6 +1,7 @@
 package org.laplas.spring.config;
 
-import org.laplas.spring.web.HomeController;
+import org.laplas.spring.web.controller.HomeController;
+import org.laplas.spring.web.service.MoodService;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = HomeController.class)
+@ComponentScan(basePackageClasses = {HomeController.class, MoodService.class})
 public class ServletContextConfiguration implements WebMvcConfigurer {
 
     /**
@@ -25,11 +26,12 @@ public class ServletContextConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        viewResolver.setExposeContextBeansAsAttributes(true);
-        registry.viewResolver(viewResolver);
+        // Jsp view resolver
+        InternalResourceViewResolver jspViewResolver = new InternalResourceViewResolver();
+        jspViewResolver.setPrefix("/WEB-INF/views/");
+        jspViewResolver.setSuffix(".jsp");
+        jspViewResolver.setExposeContextBeansAsAttributes(true);
+        registry.viewResolver(jspViewResolver);
     }
 
     /**

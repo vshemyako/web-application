@@ -1,6 +1,7 @@
 package org.laplas.spring.web;
 
 import org.junit.Test;
+import org.laplas.spring.web.controller.HomeController;
 
 /**
  * Verifies functionality of a {@link HomeController} class using Selenium library.

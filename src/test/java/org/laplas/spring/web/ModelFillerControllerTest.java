@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import org.junit.Before;
 import org.junit.Test;
+import org.laplas.spring.web.controller.ModelFillerController;
 import org.laplas.spring.web.resolver.DummyViewResolver;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;

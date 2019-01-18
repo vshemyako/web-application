@@ -1,4 +1,4 @@
-package org.laplas.spring.web;
+package org.laplas.spring.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

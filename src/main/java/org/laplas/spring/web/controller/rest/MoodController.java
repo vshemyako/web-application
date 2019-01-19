@@ -1,14 +1,15 @@
 package org.laplas.spring.web.controller.rest;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.laplas.spring.web.model.Mood;
 import org.laplas.spring.web.service.MoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,5 +50,44 @@ public class MoodController {
         return mood == null
                 ? new ResponseEntity<>(mood, HttpStatus.NOT_FOUND)
                 : new ResponseEntity<>(mood, HttpStatus.OK);
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/withHandler/{type}", method = RequestMethod.GET)
+    public Mood typeWithExceptionHandling(@PathVariable String type) {
+        Mood mood = moodService.getByType(type);
+        assertMoodNotNull(mood, type);
+        return mood;
+    }
+
+    private void assertMoodNotNull(Mood mood, String type) {
+        if (mood == null) {
+            throw new MoodNotFoundException(type);
+        }
+    }
+
+    /**
+     * Exception handler to process 'sad-path' logic.
+     */
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = MoodNotFoundException.class)
+    public Error moodNotFound(MoodNotFoundException ex) {
+        return new Error(String.format("Mood wasn't found by type '%s'", ex.getType()));
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    private static class Error {
+        private String message;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    private static class MoodNotFoundException extends RuntimeException {
+        private String type;
     }
 }

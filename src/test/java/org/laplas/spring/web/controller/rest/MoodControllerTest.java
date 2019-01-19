@@ -29,6 +29,7 @@ public class MoodControllerTest extends AbstractControllerTest {
     private static final String API_MOOD_POSITIVE = "/rest/mood/positive";
     private static final String API_MOOD_TYPE = "/rest/mood/{type}";
     private static final String API_MOOD_TYPE_WITH_STATUS = "/rest/mood/withStatus/{type}";
+    private static final String API_MOOD_TYPE_WITH_HANDLER = "/rest/mood/withHandler/{type}";
 
     private MoodService moodService = new MoodService();
 
@@ -90,6 +91,15 @@ public class MoodControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk());
 
         mockMvc.perform(get(API_MOOD_TYPE_WITH_STATUS, "cherry"))
+                .andExpect(status().is(404));
+    }
+
+    @Test
+    public void shouldUtilizeExceptionHandler() throws Exception {
+        mockMvc.perform(get(API_MOOD_TYPE_WITH_HANDLER, "angry"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get(API_MOOD_TYPE_WITH_HANDLER, "cherry"))
                 .andExpect(status().is(404));
     }
 }

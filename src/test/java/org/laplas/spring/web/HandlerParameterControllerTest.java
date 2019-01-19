@@ -37,7 +37,7 @@ public class HandlerParameterControllerTest extends AbstractControllerTest {
 
     @Before
     public void setUp() {
-        setUp(new HandlerParameterController());
+        setUpWithJspResolver(new HandlerParameterController());
     }
 
     @Test

@@ -20,7 +20,7 @@ public class ClashingMappingControllerTest extends AbstractControllerTest {
 
     @Before
     public void setUp() {
-        setUp(new ClashingMappingController());
+        setUpWithJspResolver(new ClashingMappingController());
     }
 
     @Test

@@ -32,7 +32,7 @@ public class PathVariableControllerTest extends AbstractControllerTest {
 
     @Before
     public void setUp() {
-        setUp(new PathVariableController());
+        setUpWithJspResolver(new PathVariableController());
     }
 
     /**

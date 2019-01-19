@@ -1,5 +1,6 @@
 package org.laplas.spring.web;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.laplas.spring.web.controller.RequestParamController;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +38,7 @@ public class RequestParamControllerTest extends AbstractControllerTest {
 
     @Before
     public void setUp() {
-        setUp(new RequestParamController());
+        setUpWithJspResolver(new RequestParamController());
     }
 
     /**
@@ -55,13 +57,13 @@ public class RequestParamControllerTest extends AbstractControllerTest {
      */
     @Test
     public void shouldReturnAllMoods() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get(API_MOODS)
+        MvcResult mvcResult = mockMvc.perform(get(API_MOODS).accept(MediaType.APPLICATION_JSON)
                 .param("summer", "funny")
                 .param("winter", "serious"))
                 .andReturn();
         String response = mvcResult.getResponse().getContentAsString();
         String[] actualMoods = new ObjectMapper().readValue(response, String[].class);
         String[] expectedMoods = new String[]{"funny", "serious"};
-        Assert.assertArrayEquals(expectedMoods, actualMoods);
+        assertArrayEquals(expectedMoods, actualMoods);
     }
 }

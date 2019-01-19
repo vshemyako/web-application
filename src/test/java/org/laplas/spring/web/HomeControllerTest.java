@@ -21,7 +21,7 @@ public class HomeControllerTest extends AbstractControllerTest {
 
     @Before
     public void setUp() {
-        setUp(new HomeController());
+        setUpWithJspResolver(new HomeController());
     }
 
     /**

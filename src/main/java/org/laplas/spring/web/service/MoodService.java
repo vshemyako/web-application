@@ -1,9 +1,12 @@
 package org.laplas.spring.web.service;
 
-import java.util.Arrays;
-import java.util.List;
 import org.laplas.spring.web.model.Mood;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Business layer of application which manages {@link Mood} instances.
@@ -14,11 +17,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class MoodService {
 
+    private final Map<String, Mood> nameToMood = new HashMap<>();
+
+    {
+        nameToMood.put("angry", new Mood("Angry"));
+        nameToMood.put("sad", new Mood("Sad"));
+        nameToMood.put("loving", new Mood("Loving"));
+    }
+
     public List<Mood> getPositive() {
-        return Arrays.asList(
-                new Mood("Amused"),
-                new Mood("Dreamy"),
-                new Mood("Joyful")
+        return Collections.singletonList(
+                new Mood("Positive")
         );
+    }
+
+    public Mood getByType(String type) {
+        return nameToMood.get(type);
     }
 }

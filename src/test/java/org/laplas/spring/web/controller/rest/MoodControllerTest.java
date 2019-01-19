@@ -4,20 +4,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.laplas.spring.web.AbstractControllerTest;
-import org.laplas.spring.web.model.Mood;
 import org.laplas.spring.web.service.MoodService;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.Collections;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Verifies that rest-controller indeed writes output directly to the request-body,
@@ -30,14 +27,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class MoodControllerTest extends AbstractControllerTest {
 
     private static final String API_MOOD_POSITIVE = "/rest/mood/positive";
+    private static final String API_MOOD_TYPE = "/rest/mood/{type}";
+    private static final String API_MOOD_TYPE_WITH_STATUS = "/rest/mood/withStatus/{type}";
 
-    @Mock
-    private MoodService moodService;
+    private MoodService moodService = new MoodService();
 
     @Before
     public void setUp() {
-        when(moodService.getPositive())
-                .thenReturn(Collections.singletonList(new Mood("Positive")));
         setUpWithNoResolver(new MoodController(moodService));
     }
 
@@ -69,5 +65,31 @@ public class MoodControllerTest extends AbstractControllerTest {
         String actualXmlResponse = mvcResult.getResponse().getContentAsString();
         assertEquals(expectedXmlResponse, actualXmlResponse);
         assertNull(mvcResult.getModelAndView());
+    }
+
+    /**
+     * Verifies that without additional status handling mechanisms
+     * web-controller always return ok-status response code no matter what.
+     */
+    @Test
+    public void shouldReturnOkStatus() throws Exception {
+        mockMvc.perform(get(API_MOOD_TYPE, "angry"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get(API_MOOD_TYPE, "cherry"))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * Verifies functionality of {@link ResponseEntity} class which allows
+     * to additionally specify http status code.
+     */
+    @Test
+    public void shouldReturnStatusDependingOnResult() throws Exception {
+        mockMvc.perform(get(API_MOOD_TYPE_WITH_STATUS, "angry"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get(API_MOOD_TYPE_WITH_STATUS, "cherry"))
+                .andExpect(status().is(404));
     }
 }
